@@ -56,6 +56,8 @@ body {
   padding: 10px;
   border-radius: 10px;
   text-align: center;
+  width: 100%;
+  height: auto;
 }
 
 .nft-item img {
@@ -70,7 +72,7 @@ body {
   padding: 10px;
   border-radius: 5px;
   cursor: pointer;
-  margin-top: 10px;
+  margin-top: 4px;
 }
 
 .mint-button:hover {
@@ -113,7 +115,7 @@ body {
 .article-content {
   max-width: 800px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 50px;
   background-color: #0f0f0f;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -142,15 +144,38 @@ body {
   margin-bottom: 10px;
 }
 
-/* Bold styling in paragraphs */
 .paragraph-content strong {
   color: #bbbbbb;
 }
 
-/* Media query for responsiveness */
 @media (max-width: 600px) {
+  .header h1 {
+    font-size: 30px;
+  }
+
+  .subtitle {
+    font-size: 10px;
+  }
+
+  .nft-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .nft-item {
+    padding: 5px;
+  }
+
+  .mint-button {
+    padding: 8px;
+    margin: calc(100px - 100px)
+  }
+
+  .description {
+    font-size: 14px;
+  }
+
   .article-content {
-    padding: 15px;
+    padding: 25px;
   }
 
   .paragraph-content {

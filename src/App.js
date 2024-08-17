@@ -142,7 +142,7 @@ function App() {
             {cids.map((nft, index) => (
               <div key={index} className="nft-item">
                 <img
-                  src={`https://beige-patient-cicada-388.mypinata.cloud/ipfs/${nft.cid}`}
+                  src={`/nft-images/${nft.cid}`}
                   alt={nft.name}
                 />
                 <button
