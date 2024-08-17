@@ -9,7 +9,22 @@ body {
   padding: 0;
   min-height: 100vh;
   background-size: 200% 200%;
-  background-attachment: fixed;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+}
+
+.background-container {
+  background: url('/public/background.webp') no-repeat center center fixed;
+  top: 0;
+  left: 0;
+  background-size: cover;
+  animation: floatBackground 30s ease-in-out infinite;
+}
+
+@keyframes floatBackground {
+  0% { background-position: 0% 0%; }
+  50% { background-position: 100% 100%; }
+  100% { background-position: 0% 0%; }
 }
 
 .header {
@@ -76,13 +91,14 @@ body {
 }
 
 .collection-name {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(0, 0, 0, 0.555);
   padding: 8px 16px;
   border-radius: 12px;
-  color: #ad50eb;
+  color: #c56fff;
   display: inline-block;
   font-size: 20px;
   margin-top: 10px;
+  animation: glow 2s infinite alternate;
 }
 
 .nft-grid {
@@ -95,7 +111,7 @@ body {
 }
 
 .nft-item {
-  background-color: rgba(20, 20, 20, 0.9);
+  background-color: rgba(20, 20, 20, 0.74);
   padding: 20px;
   border-radius: 15px;
   text-align: center;
@@ -169,12 +185,49 @@ body {
   color: #ad50eb;
 }
 
-@media (max-width: 600px) {
+.floating-glow {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle, rgba(173, 80, 235, 0.7), rgba(173, 80, 235, 0.3));
+  border-radius: 50%;
+  animation: float 4s ease-in-out infinite;
+  box-shadow: 0 0 30px rgba(173, 80, 235, 0.5);
+  z-index: -1;
+}
+
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0); }
+}
+
+@media (max-width: 767px) {
+    
+    .background-container {
+      background: url('/public/background.webp') no-repeat center center fixed;
+      top: 0;
+      left: 0;
+      background-size: cover;
+      animation: floatBackground 30s ease-in-out infinite;
+    }
+  
+  .floating-glow {
+    position: absolute;
+    background: radial-gradient(circle, rgba(173, 80, 235, 0.7), rgba(173, 80, 235, 0.3));
+    border-radius: 50%;
+    animation: float 4s ease-in-out infinite;
+    box-shadow: 0 0 30px rgba(173, 80, 235, 0.5);
+    z-index: -1;
+  }
+
   .header h1 {
     font-size: 25px;
     margin-top: 10px;
   }
-
+  
   .highlight-text {
     color: #ad50eb;
   }
@@ -223,6 +276,7 @@ body {
     font-family: 'Poppins', sans-serif;
     color: #ad50eb;
     font-size: 13px;
+    animation: glow 2s infinite alternate;
   }
 
   .description {
@@ -240,6 +294,18 @@ body {
     margin-top: 20px;
     background: linear-gradient(135deg, rgba(0, 0, 0, 0.5), rgba(173, 80, 235, 0.5));
     font-size: 13px;
+  }
+
+  @keyframes floatBackgroundMobile {
+    0% { background-position: 0% 0%; }
+    50% { background-position: 50% 50%; }
+    100% { background-position: 0% 0%; }
+  }
+
+  @keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0); }
   }
 }
 
