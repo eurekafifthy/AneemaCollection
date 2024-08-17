@@ -2,29 +2,31 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { mintNFT } from "./Mint"
+import { mintNFT } from "./Mint";
+import Particles from '@tsparticles/react';
+import { loadFull } from 'tsparticles';
 
 function App() {
-  const [ cids, setCids ] = useState([]);
+  const [cids, setCids] = useState([]);
   const [walletAddress, setWalletAddress] = useState("");
   const [, setTransactionHash] = useState("");
   const [, setTransactionSuccess] = useState(false);
-  
+
   useEffect(() => {
     const fetchCids = async () => {
       try {
-          const response = await fetch('/cids.json');
-          const data = await response.json();
-          setCids(data);
+        const response = await fetch('/cids.json');
+        const data = await response.json();
+        setCids(data);
       } catch (error) {
-          console.error('Error fetching cids.json:', error);
+        console.error('Error fetching cids.json:', error);
       }
-  };
+    };
 
     fetchCids();
     getCurrentWalletConnected();
     addWalletListener();
-}, [walletAddress]);
+  }, [walletAddress]);
 
   const connectWallet = async () => {
     if (typeof window !== "undefined" && typeof window.ethereum !== "undefined") {
@@ -32,7 +34,6 @@ function App() {
         const accounts = await window.ethereum.request({
           method: "eth_requestAccounts",
         });
-        
         setWalletAddress(accounts[0]);
         console.log("Connected:", accounts[0]);
       } catch (err) {
@@ -63,7 +64,7 @@ function App() {
     }
   };
 
-  const addWalletListener = async () => {
+  const addWalletListener = () => {
     if (typeof window !== "undefined" && typeof window.ethereum !== "undefined") {
       window.ethereum.on("accountsChanged", (accounts) => {
         setWalletAddress(accounts[0]);
@@ -113,7 +114,6 @@ function App() {
       console.error("Error minting NFT:", error);
     }
   };
-  
 
   return (
     <div>
@@ -128,7 +128,7 @@ function App() {
           className="connect-button"
           onClick={connectWallet}
         >
-          <span className="connect-button">
+          <span>
             {walletAddress && walletAddress.length > 0
               ? `Connected: ${walletAddress.substring(0, 6)}...${walletAddress.substring(38)}`
               : "Connect Wallet"}
@@ -136,8 +136,92 @@ function App() {
         </button>
       </header>
 
+      <Particles
+        id="tsparticles"
+        init={async (engine) => {
+          await loadFull(engine);
+        }}
+        options={{
+          particles: {
+            number: {
+              value: 100,
+              density: {
+                enable: true,
+                value_area: 800
+              }
+            },
+            color: {
+              value: "#ad50eb"
+            },
+            shape: {
+              type: "circle",
+              stroke: {
+                width: 0,
+                color: "#000000"
+              }
+            },
+            opacity: {
+              value: 0.5,
+              random: true,
+              anim: {
+                enable: false,
+                speed: 1,
+                opacity_min: 0.1,
+                sync: false
+              }
+            },
+            size: {
+              value: 3,
+              random: true,
+              anim: {
+                enable: false,
+                speed: 40,
+                size_min: 0.1,
+                sync: false
+              }
+            },
+            line_linked: {
+              enable: true,
+              distance: 150,
+              color: "#ffffff",
+              opacity: 0.4,
+              width: 1
+            },
+            move: {
+              enable: true,
+              speed: 6,
+              direction: "none",
+              random: false,
+              straight: false,
+              out_mode: "out",
+              bounce: false,
+              attract: {
+                enable: false,
+                rotateX: 600,
+                rotateY: 1200
+              }
+            }
+          },
+          interactivity: {
+            detect_on: "canvas",
+            events: {
+              onhover: {
+                enable: true,
+                mode: "repulse"
+              },
+              onclick: {
+                enable: true,
+                mode: "push"
+              },
+              resize: true
+            }
+          },
+          retina_detect: true
+        }}
+      />
+
       <section className="hero is-fullheight">
-        <div className="container has-text-centered main-content">
+        <div className="content">
           <div className="nft-grid">
             {cids.map((nft, index) => (
               <div key={index} className="nft-item">
@@ -155,19 +239,21 @@ function App() {
             ))}
           </div>
           <p className="description">
-            Only available on the Morph Holesky Testnet network!
+            Only available on the Morph Holesky Testnet network
           </p>
-          <article class="article-content">
-  <p class="paragraph-content"><strong>Aneema</strong> is a collection of 225 unique, algorithmically anime-style avatars living on the blockchain. Each <strong>Aneema</strong> features a young girl with radiant, galaxy-like eyes, bursting with vibrant, swirling colors. Her expression is calm and serene, enhanced by soft, natural makeup. The intricate dance of dappled sunlight on her face highlights her ethereal beauty, while the abstract background, with its water-like reflections and bright, playful hues, evokes a dreamy, otherworldly atmosphere.</p>
-
-  <p class="paragraph-content"><strong>Aneema</strong> is more than just digital art, it's a thriving of dreamers and explorers passionate about anime and NFTs.</p>
-
-  <p class="paragraph-content"><strong>How to get an Aneema NFT Collection:</strong></p>
-  <p class="paragraph-content">Available for mint / purchase at a price of 1 ETH each.</p>
-
-  <p class="paragraph-content">We’re excited to launch <strong>Aneema</strong> and welcome you into our community of dreamers and explorers</p>
-</article>
-
+          <article className="article-content">
+            <p className="paragraph-content">
+              <strong className="highlight-text">Aneema</strong> is a collection of 225 unique, algorithmically anime-style avatars living on the blockchain. Each <strong className="highlight-text">Aneema</strong> features a young girl with radiant, galaxy-like eyes, bursting with vibrant, swirling colors. Her expression is calm and serene, enhanced by soft, natural makeup. The intricate dance of dappled sunlight on her face highlights her ethereal beauty, while the abstract background, with its water-like reflections and bright, playful hues, evokes a dreamy, otherworldly atmosphere.
+            </p>
+            <p className="paragraph-content">
+              <strong className="highlight-text">Aneema</strong> is more than just digital art, it's a thriving community of dreamers and explorers passionate about anime and NFTs.
+            </p>
+            <p className="paragraph-content">
+              <strong className="highlight-text">How to get an Aneema NFT Collection:</strong>
+            </p>
+            <p className="paragraph-content">Available for mint / purchase at a price of 1 ETH each.</p>
+            <p className="paragraph-content">We’re excited to launch <strong className="highlight-text">Aneema</strong> and welcome you into our community of dreamers and explorers.</p>
+          </article>
         </div>
       </section>
 
