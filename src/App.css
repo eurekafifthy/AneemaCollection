@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Raleway:wght@700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Raleway:wght@700&display=swap");
 
 body {
   background: linear-gradient(100deg, #000000 0%, #150a29 50%, #000000 100%);
@@ -13,18 +13,41 @@ body {
   overscroll-behavior: contain;
 }
 
+.blur-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  z-index: 1;
+  display: none;
+}
+
+.blur-overlay.visible {
+  display: block;
+}
+
 .background-container {
-  background: url('/public/background.webp') no-repeat center center fixed;
+  background: url("/public/background.webp") no-repeat center center fixed;
   top: 0;
   left: 0;
   background-size: cover;
   animation: floatBackground 30s ease-in-out infinite;
+  position: relative;
 }
 
 @keyframes floatBackground {
-  0% { background-position: 0% 0%; }
-  50% { background-position: 100% 100%; }
-  100% { background-position: 0% 0%; }
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
 }
 
 .header {
@@ -36,7 +59,7 @@ body {
 }
 
 .header h1 {
-  font-family: 'Poppins', sans-serif; 
+  font-family: "Poppins", sans-serif;
   font-size: 48px;
   font-weight: 800;
   margin: 0;
@@ -46,7 +69,7 @@ body {
 }
 
 .header .highlight {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 800;
   font-style: italic;
   color: #ad50eb;
@@ -57,15 +80,18 @@ body {
 }
 
 @keyframes glow {
-  from { text-shadow: 0 0 10px #ad50eb; }
-  to { text-shadow: 0 0 20px #f384ff; }
+  from {
+    text-shadow: 0 0 10px #ad50eb;
+  }
+  to {
+    text-shadow: 0 0 20px #f384ff;
+  }
 }
 
 .connect-button {
-  background: linear-gradient(45deg, #ad50eb, #f093fb);
   color: white;
   border: none;
-  padding: 12px 20px;
+  padding: 10px 20px;
   border-radius: 8px;
   margin-top: 10px;
   margin-bottom: 10px;
@@ -74,12 +100,108 @@ body {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   outline: none;
+  position: absolute;
+  top: 35px;
+  right: 50px;
+  background: linear-gradient(
+    120deg,
+    rgba(0, 0, 0, 0.63),
+    rgba(173, 80, 235, 0.616)
+  );
 }
 
 .connect-button:hover {
   transform: translateY(-3px);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
-  color: #2b002c;
+  color: #b1b1b1;
+  outline: none;
+}
+
+.connected-button:focus {
+  outline: none;
+}
+
+.connect-button:focus {
+  outline: none;
+}
+
+.connected-button:active {
+  outline: none;
+}
+
+.connect-button:active {
+  outline: none;
+}
+
+.connected-button {
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  outline: none;
+  position: absolute;
+  top: 35px;
+  right: 50px;
+  background: linear-gradient(
+    120deg,
+    rgba(0, 0, 0, 0.63),
+    rgba(173, 80, 235, 0.616)
+  );
+}
+
+.connected-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+  color: #b1b1b1;
+  outline: none;
+}
+
+.wallet-info-card {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: #ad50ebab;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  width: 336px;
+  text-align: left;
+  z-index: 10;
+  background: linear-gradient(
+    120deg,
+    rgba(0, 0, 0, 0.63),
+    rgba(173, 80, 235, 0.616)
+  );
+  outline: none;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: slideIn 0.4s ease forwards;
+}
+
+@keyframes slideIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.wallet-info-card h2 {
+  margin: 0 0 10px;
+  font-size: 18px;
+  font-weight: bold;
+  outline: none;
+}
+
+.wallet-info-card p {
+  margin: 5px 0;
+  font-size: 14px;
+  outline: none;
 }
 
 .subtitle {
@@ -135,7 +257,11 @@ body {
 }
 
 .mint-button {
-  background-color: #ad50eb;
+  background: linear-gradient(
+    120deg,
+    rgba(0, 0, 0, 0.63),
+    rgba(173, 80, 235, 0.616)
+  );
   color: white;
   border: none;
   padding: 10px;
@@ -164,12 +290,16 @@ body {
   padding: 50px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  background: linear-gradient(135deg, rgba(0, 0, 0, 0.5), rgba(173, 80, 235, 0.5));
+  background: linear-gradient(
+    120deg,
+    rgba(0, 0, 0, 0.63),
+    rgba(173, 80, 235, 0.616)
+  );
   text-align: left;
 }
 
 .paragraph-content {
-  font-family: 'poppins', sans-serif;
+  font-family: "poppins", sans-serif;
   line-height: 1.6;
   font-size: 0.9rem;
   color: #bebebe;
@@ -185,49 +315,20 @@ body {
   color: #ad50eb;
 }
 
-.floating-glow {
-  position: absolute;
-  top: 20%;
-  left: 50%;
-  width: 100px;
-  height: 100px;
-  background: radial-gradient(circle, rgba(173, 80, 235, 0.7), rgba(173, 80, 235, 0.3));
-  border-radius: 50%;
-  animation: float 4s ease-in-out infinite;
-  box-shadow: 0 0 30px rgba(173, 80, 235, 0.5);
-  z-index: -1;
-}
-
-@keyframes float {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-20px); }
-  100% { transform: translateY(0); }
-}
-
-@media (max-width: 767px) {
-    
-    .background-container {
-      background: url('/public/background.webp') no-repeat center center fixed;
-      top: 0;
-      left: 0;
-      background-size: cover;
-      animation: floatBackground 30s ease-in-out infinite;
-    }
-  
-  .floating-glow {
-    position: absolute;
-    background: radial-gradient(circle, rgba(173, 80, 235, 0.7), rgba(173, 80, 235, 0.3));
-    border-radius: 50%;
-    animation: float 4s ease-in-out infinite;
-    box-shadow: 0 0 30px rgba(173, 80, 235, 0.5);
-    z-index: -1;
+@media (max-width: 600px) {
+  .background-container {
+    background: url("/public/background.webp") no-repeat center center fixed;
+    top: 0;
+    left: 0;
+    background-size: cover;
+    animation: floatBackground 40s ease-in-out infinite;
   }
 
   .header h1 {
     font-size: 25px;
     margin-top: 10px;
   }
-  
+
   .highlight-text {
     color: #ad50eb;
   }
@@ -244,20 +345,96 @@ body {
     padding: 5px;
     font-size: 10px;
     margin-top: 8px;
+    background: linear-gradient(
+      120deg,
+      rgba(0, 0, 0, 0.63),
+      rgba(173, 80, 235, 0.616)
+    );
   }
 
   .connect-button {
-    background-color: #ad50eb;
     color: white;
     border: none;
-    padding: 10px;
-    border-radius: 5px;
-    margin-top: -15px;
-    font-size: 10px; 
+    padding: 120px;
+    margin-right: calc(50% - 4.5px - 100px);
+    margin-top: 145px;
+    font-size: 10px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    z-index: 10;
+    outline: none;
+  }
+
+  .connect-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+    color: #b1b1b1;
+    outline: none;
+  }
+
+  .connected-button {
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 10px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    outline: none;
+    position: absolute;
+    top: 175px;
+    right: 101px;
+    z-index: 10;
+    background: linear-gradient(
+      120deg,
+      rgba(0, 0, 0, 0.63),
+      rgba(173, 80, 235, 0.616)
+    );
+  }
+
+  .connected-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+    color: #b1b1b1;
+    outline: none;
+  }
+
+  .wallet-info-card {
+    position: absolute;
+    top: -145px;
+    right: 12px;
+    background-color: #ad50ebab;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    width: 336px;
+    text-align: left;
+    z-index: 10;
+    background: linear-gradient(
+      120deg,
+      rgba(0, 0, 0, 0.63),
+      rgba(173, 80, 235, 0.616)
+    );
+    margin-top: 160px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: slideIn 0.4s ease forwards;
+    outline: none;
+  }
+
+  button:focus-visible {
+    outline: none;
+  }
+
+  button::-moz-focus-inner {
+    border: 0;
   }
 
   .nft-grid {
-    margin-top: -30px;
+    margin-top: 20px;
   }
 
   .subtitle {
@@ -273,7 +450,7 @@ body {
     background-color: #141414;
     padding: 4px 4px;
     border-radius: 4px;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     color: #ad50eb;
     font-size: 13px;
     animation: glow 2s infinite alternate;
@@ -292,20 +469,24 @@ body {
     padding-left: 30px;
     padding-right: 30px;
     margin-top: 20px;
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.5), rgba(173, 80, 235, 0.5));
+    background: linear-gradient(
+      120deg,
+      rgba(0, 0, 0, 0.63),
+      rgba(173, 80, 235, 0.616)
+    );
     font-size: 13px;
   }
 
   @keyframes floatBackgroundMobile {
-    0% { background-position: 0% 0%; }
-    50% { background-position: 50% 50%; }
-    100% { background-position: 0% 0%; }
-  }
-
-  @keyframes float {
-    0% { transform: translateY(0); }
-    50% { transform: translateY(-20px); }
-    100% { transform: translateY(0); }
+    0% {
+      background-position: 0% 0%;
+    }
+    50% {
+      background-position: 50% 50%;
+    }
+    100% {
+      background-position: 0% 0%;
+    }
   }
 }
 

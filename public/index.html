@@ -1,41 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Aneema Collection</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+    }
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>Aneema Collection</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+    .rain {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 200vh; /* Ensures rain continues beyond viewport */
+      pointer-events: none;
+      z-index: 2;
+      overflow: hidden;
+    }
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+    .rain__drop {
+      position: absolute;
+      width: 5px;
+      height: 50px;
+      left: calc(var(--x) * 1%);
+      top: calc((var(--y) + 50) * -1px);
+      animation-name: drop;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+      animation-duration: calc(var(--a) * 2s);
+      animation-delay: calc(var(--d) * 2s);
+    }
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
-  </body>
+    .rain__drop path {
+      fill: rgba(161, 198, 204, 0.3);
+      opacity: var(--o);
+      transform: scaleY(calc(var(--s) * 1.5));
+    }
+
+    @keyframes drop {
+      90% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(100vh);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .rain__drop {
+        animation-duration: calc(var(--a) * 3s); /* Slow down rain on mobile */
+        animation-delay: calc(var(--d) * 3s);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <div class="rain"></div>
+
+  <script>
+    function createDroplets(num) {
+      const rainContainer = document.querySelector('.rain');
+      for (let r = 0; r < num; r++) {
+        const drop = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        drop.classList.add('rain__drop');
+        drop.setAttribute('preserveAspectRatio', 'xMinYMin');
+        drop.setAttribute('viewBox', '0 0 5 50');
+        drop.style.setProperty('--x', Math.floor(Math.random() * 100));
+        drop.style.setProperty('--y', Math.floor(Math.random() * 100));
+        drop.style.setProperty('--o', Math.random());
+        drop.style.setProperty('--a', (Math.random() + 0.5));
+        drop.style.setProperty('--d', (Math.random() * 2 - 1));
+        drop.style.setProperty('--s', Math.random());
+
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        path.setAttribute('stroke', 'none');
+        path.setAttribute('d', 'M 2.5,0 C 2.6949458,3.5392017 3.344765,20.524571 4.4494577,30.9559 5.7551357,42.666753 4.5915685,50 2.5,50 0.40843152,50 -0.75513565,42.666753 0.55054234,30.9559 1.655235,20.524571 2.3050542,3.5392017 2.5,0 Z');
+        drop.appendChild(path);
+
+        rainContainer.appendChild(drop);
+      }
+    }
+
+    function updateDroplets() {
+      const isMobile = window.innerWidth <= 768;
+      const dropletCount = isMobile ? 80 : 200;
+      document.querySelector('.rain').innerHTML = '';
+      createDroplets(dropletCount);
+    }
+
+    // Initial creation
+    updateDroplets();
+
+    // Adjust droplets on resize
+    window.addEventListener('resize', updateDroplets);
+  </script>
+</body>
 </html>

@@ -32,9 +32,9 @@ export const mintNFT = async (walletAddress, nftNumber) => {
     const signer = new ethers.providers.Web3Provider(window.ethereum).getSigner();
     const contract = new ethers.Contract(contractAddress, abi, signer);
     const tokenURI = `https://beige-patient-cicada-388.mypinata.cloud/ipfs/Qmdw1XLUUdi3RtKexPfr3mPkYNap25YoNX3DMetTruZyRS/${nftNumber}.json`;
-    const amount = 1000000000000000000n;
+    const amount = 1000000000000000000n; // 1 ETH
 
-    const message = `You are about to mint NFT #${nftNumber}\n\nRequest from:\nAneema Collection Marketplace\nURI: https://aneema.netlify.app/\n\nChainID: 2810\nNetwork: Morph Holesky Testnet\nAmount: 1 ETH\n\n\nDo you want to proceed?`;
+    const message = `You are about to mint NFT #${nftNumber}\n\nRequest from:\nAneema Collection Marketplace\n\nURI: https://aneema.netlify.app/\nChainID: 2810\nNetwork: Morph Holesky Testnet\nAmount: 1 ETH\n\n\nDo you want to proceed?`;
     
     const signature = await signer.signMessage(message);
     console.log(`User Signature: ${signature}`);
